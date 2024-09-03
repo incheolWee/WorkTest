@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Work Form</title>
+</head>
+<body>
+<h1>Work Form</h1>
+<form th:action="@{/work/save}" th:object="${work}" method="post">
+    <input type="hidden" th:field="*{id}" />
+    <div>
+        <label>User ID:</label>
+        <input type="text" th:field="*{userId}" />
+    </div>
+    <div>
+        <label>File ID:</label>
+        <input type="text" th:field="*{fileId}" />
+    </div>
+    <div>
+        <label>Shared:</label>
+        <input type="checkbox" th:field="*{shared}" />
+    </div>
+    <div>
+        <label>Trashed:</label>
+        <input type="checkbox" th:field="*{trashed}" />
+    </div>
+    <div>
+        <label>Finish:</label>
+        <input type="checkbox" th:field="*{finish}" />
+    </div>
+    <div>
+        <button type="submit">Save</button>
+    </div>
+</form>
+<a href="/work">Back to List</a> <!-- Link to go back to the list -->
+</body>
+</html>

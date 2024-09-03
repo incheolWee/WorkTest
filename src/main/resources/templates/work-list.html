@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Work List</title>
+</head>
+<body>
+<h1>Work List</h1>
+<a href="/work/add">Add New Work</a> <!-- Link to add a new work item -->
+<table border="1">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>User ID</th>
+    <th>File ID</th>
+    <th>Shared</th>
+    <th>Trashed</th>
+    <th>Finish</th>
+    <th>CreateDate</th>
+    <th>UpdateDate</th>
+    <th>OpenDate</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="work : ${works}">
+    <td th:text="${work.id}">ID</td>
+    <td th:text="${work.userId}">User ID</td>
+    <td th:text="${work.fileId}">File ID</td>
+    <td th:text="${work.shared}">Shared</td>
+    <td th:text="${work.trashed}">Trashed</td>
+    <td th:text="${work.finish}">Finish</td>
+    <td th:text="${work.createDate}">CreateDate</td>
+    <td th:text="${work.updateDate}">UpdateDate</td>
+    <td th:text="${work.openDate}">OpenDate</td>
+<!--    <td th:text="${work.}"-->
+    <td>
+      <a th:href="@{/work/edit/{id}(id=${work.id})}">Edit</a>
+      <a th:href="@{/work/delete/{id}(id=${work.id})}">Delete</a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>
