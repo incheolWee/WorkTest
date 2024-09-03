@@ -23,5 +23,4 @@ public class WorkDTO {
     private String updateDate; //수정일
     private String deleteDate; //삭제일
     private String openDate; //열람일
-
 }
