@@ -11,4 +11,5 @@ public interface WorkService {
     List<WorkDTO> getAllWorks();
     WorkDTO updateWork(Long id, WorkDTO workDTO);
     void deleteWork(Long id);
+    WorkDTO updateOpenDate(Long id);
 }

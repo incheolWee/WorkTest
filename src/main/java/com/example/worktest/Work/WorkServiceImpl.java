@@ -101,4 +101,16 @@ public class WorkServiceImpl implements WorkService {
     public void deleteWork(Long id) { //작업 id로 삭제
         workRepository.deleteById(id); //작업 삭제
     }
+    @Override
+    public WorkDTO updateOpenDate(Long id){
+        Optional<Work> optionalWork = workRepository.findById(id); //id로 작업 찾기
+        if (optionalWork.isPresent()) { //작업이 존재하면
+            Work work = optionalWork.get();
+            work.setOpenDate(LocalDateTime.now());
+            Work updatedWork = workRepository.save(work); //작업 업데이트
+            return convertToDto(updatedWork); //작업을 WorkDTO로 변환
+        } else {
+            throw new RuntimeException("Work entity with ID " + id + " not found.");
+        }
+    }
 }
