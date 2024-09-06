@@ -1,4 +1,4 @@
-package com.example.worktest.Work;
+package com.example.worktest.Work_Test;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

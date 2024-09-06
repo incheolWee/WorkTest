@@ -1,4 +1,4 @@
-package com.example.worktest.Work;
+package com.example.worktest.Work_Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
