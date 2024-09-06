@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class WorkDTO {
+public class WorkTestDTO {
     private Long id;
     private Long userId; //생성자 사용자의 ID
     private Long fileId; //파일ID 워크의 원본 파일

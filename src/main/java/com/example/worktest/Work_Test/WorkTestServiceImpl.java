@@ -10,18 +10,18 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class WorkServiceImpl implements WorkService {
+public class WorkTestServiceImpl implements WorkTestService {
 
     @Autowired
-    private WorkRepository workRepository;
+    private WorkTestRepository workRepository;
 
     DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"); //데이터 형식 설정
     @Override
-    public WorkDTO convertToDto(Work work) {
+    public WorkTestDTO convertToDto(WorkTest work) {
         if (work == null) {
             return null;
         }
-        return new WorkDTO(
+        return new WorkTestDTO(
                 work.getId(),
                 work.getUserId(),
                 work.getFileId(),
@@ -36,11 +36,11 @@ public class WorkServiceImpl implements WorkService {
     }
 
     @Override
-    public Work convertToEntity(WorkDTO workDTO) {
+    public WorkTest convertToEntity(WorkTestDTO workDTO) {
         if (workDTO == null) {
             return null;
         }
-        return new Work(
+        return new WorkTest(
                 workDTO.getId(),
                 workDTO.getUserId(),
                 workDTO.getFileId(),
@@ -55,7 +55,7 @@ public class WorkServiceImpl implements WorkService {
     }
 
     @Override
-    public List<WorkDTO> getAllWorks() { //모든 작업 가져오기
+    public List<WorkTestDTO> getAllWorks() { //모든 작업 가져오기
         return workRepository.findAll()
                 .stream() // stream() 메소드는 컬렉션을 스트림으로 변환
                 .map(this::convertToDto) //  map() 메소드는 스트림의 각 요소에 함수를 적용
@@ -63,23 +63,23 @@ public class WorkServiceImpl implements WorkService {
     }
 
     @Override
-    public Optional<WorkDTO> getWorkById(Long id) { //id로 작업 찾기
+    public Optional<WorkTestDTO> getWorkById(Long id) { //id로 작업 찾기
         return workRepository.findById(id) //id로 작업 찾기
                 .map(this::convertToDto); //작업을 WorkDTO로 변환
     }
 
     @Override
-    public WorkDTO createWork(WorkDTO workDTO) { //작업 생성
-        Work work = convertToEntity(workDTO); //WorkDTO를 Work로 변환
-        Work savedWork = workRepository.save(work); //작업 저장
+    public WorkTestDTO createWork(WorkTestDTO workDTO) { //작업 생성
+        WorkTest work = convertToEntity(workDTO); //WorkDTO를 Work로 변환
+        WorkTest savedWork = workRepository.save(work); //작업 저장
         return convertToDto(savedWork); //작업을 WorkDTO로 변환
     }
 
     @Override
-    public WorkDTO updateWork(Long id, WorkDTO workDTO) { //작업 업데이트
-        Optional<Work> optionalWork = workRepository.findById(id); //id로 작업 찾기
+    public WorkTestDTO updateWork(Long id, WorkTestDTO workDTO) { //작업 업데이트
+        Optional<WorkTest> optionalWork = workRepository.findById(id); //id로 작업 찾기
         if (optionalWork.isPresent()) { //작업이 존재하면
-            Work work = optionalWork.get();
+            WorkTest work = optionalWork.get();
             work.setUserId(workDTO.getUserId());
             work.setFileId(workDTO.getFileId());
             work.setShared(workDTO.isShared());
@@ -89,7 +89,7 @@ public class WorkServiceImpl implements WorkService {
             work.setUpdateDate(workDTO.getUpdateDate() != null ? LocalDateTime.parse(workDTO.getUpdateDate(), FORMATTER) : null);
             work.setDeleteDate(workDTO.getDeleteDate() != null ? LocalDateTime.parse(workDTO.getDeleteDate(), FORMATTER) : null);
             work.setOpenDate(workDTO.getOpenDate() != null ? LocalDateTime.parse(workDTO.getOpenDate(), FORMATTER) : null);
-            Work updatedWork = workRepository.save(work); //작업 업데이트
+            WorkTest updatedWork = workRepository.save(work); //작업 업데이트
             return convertToDto(updatedWork); //작업을 WorkDTO로 변환
         } else {
             return null; //작업이 존재하지 않으면 null 반환
@@ -101,12 +101,12 @@ public class WorkServiceImpl implements WorkService {
         workRepository.deleteById(id); //작업 삭제
     }
     @Override
-    public WorkDTO updateOpenDate(Long id){
-        Optional<Work> optionalWork = workRepository.findById(id); //id로 작업 찾기
+    public WorkTestDTO updateOpenDate(Long id){
+        Optional<WorkTest> optionalWork = workRepository.findById(id); //id로 작업 찾기
         if (optionalWork.isPresent()) { //작업이 존재하면
-            Work work = optionalWork.get();
+            WorkTest work = optionalWork.get();
             work.setOpenDate(LocalDateTime.now());
-            Work updatedWork = workRepository.save(work); //작업 업데이트
+            WorkTest updatedWork = workRepository.save(work); //작업 업데이트
             return convertToDto(updatedWork); //작업을 WorkDTO로 변환
         } else {
             throw new RuntimeException("Work entity with ID " + id + " not found.");
